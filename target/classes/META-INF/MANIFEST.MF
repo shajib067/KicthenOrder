@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: shajibkhan
+Build-Jdk: 23.0.2
+Implementation-Title: CloudKitchen Simulation
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: cloudkitchen
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: com.css.challenge.client.Main
+Created-By: Maven Integration for Eclipse
+
