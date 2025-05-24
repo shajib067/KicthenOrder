@@ -2,6 +2,7 @@ package com.css.challenge.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
@@ -35,7 +36,7 @@ public class Client {
    */
   public Problem newProblem(String name, long seed) throws IOException {
     if (seed == 0) {
-      seed = new Random().nextLong();
+      seed = new SecureRandom().nextLong();
     }
 
     String url = UriComponentsBuilder.fromHttpUrl(endpoint + "/interview/challenge/new")

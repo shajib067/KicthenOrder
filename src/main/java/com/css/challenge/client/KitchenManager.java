@@ -1,5 +1,6 @@
 package com.css.challenge.client;
 
+import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.*;
@@ -17,7 +18,7 @@ public class KitchenManager {
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
     private final List<Action> actions = new CopyOnWriteArrayList<>();
-    private final Random random = new Random();
+    private final Random random = new SecureRandom();
 
     private final long minPickupMicros;
     private final long maxPickupMicros;
