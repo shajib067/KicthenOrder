@@ -23,6 +23,9 @@ public class ChallengeApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         Main main = context.getBean(Main.class);
-        new CommandLine(main).execute(args);
+        CommandLine cmd = new CommandLine(main);
+        cmd.setUnmatchedOptionsArePositionalParams(true);
+        cmd.setUnmatchedArgumentsAllowed(true);
+        cmd.execute(args);
     }
 }

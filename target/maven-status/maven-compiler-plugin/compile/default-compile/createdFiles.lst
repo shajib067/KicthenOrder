@@ -1,7 +1,7 @@
 com/css/challenge/ChallengeApplication.class
+com/css/challenge/harness/KitchenSimulator.class
 com/css/challenge/client/ActionLogger.class
 com/css/challenge/client/Client.class
-com/css/challenge/client/shelf/Shelf.class
 com/css/challenge/client/Client$Options.class
 com/css/challenge/client/Temparature.class
 com/css/challenge/client/Order$1.class
