@@ -14,11 +14,11 @@ public class KitchenManagerTest {
     
     private ActionLogger log = new ActionLogger();
 
-    private KitchenManager manager = new KitchenManager(minMicros, maxMicros, log);
+    private KitchenManager manager = new KitchenManager(log);
 
 	@AfterEach
 	public void killThread() {
-		manager.killExecutor();
+		//manager.killExecutor();
 	}
 
     @org.junit.jupiter.api.Test

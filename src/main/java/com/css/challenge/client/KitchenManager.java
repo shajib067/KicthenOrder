@@ -1,7 +1,6 @@
 package com.css.challenge.client;
 
 import java.util.*;
-import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 
@@ -15,17 +14,9 @@ public class KitchenManager {
 
     private final ReentrantLock lock = new ReentrantLock();
 
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
-    private final Random random = new Random();
-
-    private final long minPickupMicros;
-    private final long maxPickupMicros;
-
     private ActionLogger log;
     
-    public KitchenManager(long minPickupMicros, long maxPickupMicros, ActionLogger log) {
-        this.minPickupMicros = minPickupMicros;
-        this.maxPickupMicros = maxPickupMicros;
+    public KitchenManager(ActionLogger log) {
         this.shelfQueue = new PriorityQueue<>((a, b) -> Long.compare(a.getExpiry(), b.getExpiry()));
         this.log = log;
     }
@@ -49,10 +40,6 @@ public class KitchenManager {
         } finally {
             lock.unlock();
         }
-
-        // Schedule pickup
-        long delay = random.nextLong(minPickupMicros, maxPickupMicros);
-        scheduler.schedule(() -> pickupOrder(order.getId()), delay, TimeUnit.MICROSECONDS);
     }
 
     private boolean tryPlace(Order order) {
@@ -114,9 +101,5 @@ public class KitchenManager {
         } finally {
             lock.unlock();
         }
-    }
-    
-    public void killExecutor() {
-    	this.scheduler.shutdown();
     }
 }

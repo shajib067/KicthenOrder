@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.css.challenge.harness.KitchenSimulator;
+
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -46,21 +48,14 @@ public class Main implements Runnable {
   
   @Override
   public void run() {
-    KitchenManager kitchen = new KitchenManager(min.toNanos()/1000, max.toNanos()/1000, log);
+    KitchenManager kitchen = new KitchenManager(log);
+    KitchenSimulator simulator = new KitchenSimulator(kitchen, rate, min, max);
     try {
       Client client = new Client(endpoint, auth);
       Problem problem = client.newProblem(name, seed);
 
       // ------ Simulation harness logic goes here using rate, min and max ----
-      
-      for (Order order : problem.getOrders()) {
-        LOGGER.info("Received: {}", order);
-        kitchen.placeOrder(order);
-        Thread.sleep(rate.toMillis());
-      }
-
-      Thread.sleep(max.toMillis() + 1000);
-      // ----------------------------------------------------------------------
+      simulator.runSimulation(problem.getOrders());
 
       String result = client.solveProblem(problem.getTestId(), rate, min, max, log.getActions());
       LOGGER.info("Result: {}", result);
@@ -70,7 +65,7 @@ public class Main implements Runnable {
       LOGGER.error("Simulation failed: {}", e.getMessage());
     }
     finally {
-    	kitchen.killExecutor();
+    	simulator.killExecutor();
     }
   }
 }
