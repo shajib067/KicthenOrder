@@ -3,19 +3,21 @@ package com.css.challenge.client;
 import java.io.IOException;
 import java.time.Duration;
 
-import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
+@Component
 @Command(name = "challenge", showDefaultValues = true)
 public class Main implements Runnable {
   private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
   static {
-    org.apache.log4j.Logger.getRootLogger().setLevel(Level.OFF);
     System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT: %5$s %n");
   }
 
@@ -40,9 +42,12 @@ public class Main implements Runnable {
   @Option(names = "--max", description = "Maximum pickup time")
   Duration max = Duration.ofSeconds(8);
 
+  @Autowired
+  private ActionLogger log;
+  
   @Override
   public void run() {
-    KitchenManager kitchen = new KitchenManager(min.toNanos()/1000, max.toNanos()/1000);
+    KitchenManager kitchen = new KitchenManager(min.toNanos()/1000, max.toNanos()/1000, log);
     try {
       Client client = new Client(endpoint, auth);
       Problem problem = client.newProblem(name, seed);
@@ -58,7 +63,7 @@ public class Main implements Runnable {
       Thread.sleep(max.toMillis() + 1000);
       // ----------------------------------------------------------------------
 
-      String result = client.solveProblem(problem.getTestId(), rate, min, max, kitchen.getActions());
+      String result = client.solveProblem(problem.getTestId(), rate, min, max, log.getActions());
       LOGGER.info("Result: {}", result);
 
     } 
@@ -68,9 +73,5 @@ public class Main implements Runnable {
     finally {
     	kitchen.killExecutor();
     }
-  }
-
-  public static void main(String[] args) {
-    new CommandLine(new Main()).execute(args);
   }
 }

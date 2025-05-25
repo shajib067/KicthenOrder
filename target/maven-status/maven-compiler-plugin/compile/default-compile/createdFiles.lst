@@ -1,9 +1,13 @@
+com/css/challenge/ChallengeApplication.class
+com/css/challenge/client/ActionLogger.class
+com/css/challenge/client/Client.class
+com/css/challenge/client/shelf/Shelf.class
+com/css/challenge/client/Client$Options.class
+com/css/challenge/client/Temparature.class
 com/css/challenge/client/Order$1.class
 com/css/challenge/client/Problem.class
 com/css/challenge/client/Action.class
 com/css/challenge/client/Client$Solution.class
-com/css/challenge/client/Client.class
 com/css/challenge/client/Main.class
 com/css/challenge/client/Order.class
-com/css/challenge/client/Client$Options.class
 com/css/challenge/client/KitchenManager.class

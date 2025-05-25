@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.css.challenge.client.KitchenManagerTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.066 sec - in com.css.challenge.client.KitchenManagerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.070 s -- in com.css.challenge.client.KitchenManagerTest
