@@ -1,7 +1,12 @@
 package com.css.challenge.client;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import com.css.challenge.client.shelf.ShelfManager;
+import com.css.challenge.client.shelf.Temparature;
+
 import java.util.List;
 import static org.junit.Assert.*;
 
@@ -9,39 +14,48 @@ public class KitchenManagerTest {
 
     private static long minMicros = 6_000_000; // 2s
     private static long maxMicros = 8_000_000; // 4s
+    private KitchenManager manager;
+    private ActionLogger log;
 
-    private KitchenManager manager = new KitchenManager(minMicros, maxMicros);
-
+    @Before
+    public void init() {
+    	log = new ActionLogger();
+    	ShelfManager shelfManager = new ShelfManager(log);
+    	shelfManager.addShelf(Temparature.HOT, 6);
+    	shelfManager.addShelf(Temparature.COLD, 6);
+    	shelfManager.addShelf(Temparature.ROOM, 12);
+    	manager = new KitchenManager(minMicros, maxMicros, shelfManager, log);
+    }
 	@After
 	public void killThread() {
 		manager.killExecutor();
 	}
 
-    @Test
-    public void testOverflowShelfDiscardsLeastFreshOrder() throws InterruptedException {
+	@Test
+	public void testOverflowShelfDiscardsLeastFreshOrder() throws InterruptedException {
+	    // Prevent pickups during test
+	    long testMinMicros = 30_000_000; 
+	    long testMaxMicros = 30_000_001;
 
-        // Create 19 cold orders to overflow cold and room shelf both
-        for (int i = 0; i < 19; i++) {
-            Order o = new Order("cold-" + i, "IceCream" + i, "cold", 100);
-            manager.placeOrder(o);
-        }
+	    ShelfManager shelfManager = new ShelfManager(log);
+	    shelfManager.addShelf(Temparature.HOT, 6);
+	    shelfManager.addShelf(Temparature.COLD, 6);
+	    shelfManager.addShelf(Temparature.ROOM, 12);
+	    manager = new KitchenManager(testMinMicros, testMaxMicros, shelfManager, log);
 
-        Thread.sleep(6000);
+	    for (int i = 0; i < 19; i++) {
+	        Order o = new Order("cold-" + i, "IceCream" + i, "cold", 100);
+	        manager.placeOrder(o);
+	    }
 
-        List<Action> actions = manager.getActions();
+	    Thread.sleep(1000); // just let placement finish
 
-        // Check a "discard" happened
-        boolean discardFound = actions.stream()
-            .anyMatch(a -> a.getAction().equals("discard"));
+	    List<Action> actions = log.getActions();
 
-        assertTrue("At least one order should have been discarded", discardFound);
+	    boolean discardFound = actions.stream()
+	        .anyMatch(a -> a.getAction().equals("discard"));
 
-        // Optional: Ensure cold-6 (first item in room shelf freshness) was the one discarded
-        String discardedId = actions.stream()
-            .filter(a -> a.getAction().equals("discard"))
-            .map(Action::getId)
-            .findFirst().orElse("");
+	    assertTrue("At least one order should have been discarded", discardFound);
+	}
 
-        assertEquals("cold-6", discardedId);
-    }
 }

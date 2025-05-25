@@ -6,6 +6,10 @@ import java.time.Duration;
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.css.challenge.client.shelf.ShelfManager;
+import com.css.challenge.client.shelf.Temparature;
+
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -42,7 +46,12 @@ public class Main implements Runnable {
 
   @Override
   public void run() {
-    KitchenManager kitchen = new KitchenManager(min.toNanos()/1000, max.toNanos()/1000);
+	ActionLogger log = new ActionLogger();
+	ShelfManager shelfManager = new ShelfManager(log);
+	shelfManager.addShelf(Temparature.HOT, 6);
+	shelfManager.addShelf(Temparature.COLD, 6);
+	shelfManager.addShelf(Temparature.ROOM, 12);
+    KitchenManager kitchen = new KitchenManager(min.toNanos()/1000, max.toNanos()/1000, shelfManager, log);
     try {
       Client client = new Client(endpoint, auth);
       Problem problem = client.newProblem(name, seed);
@@ -58,7 +67,7 @@ public class Main implements Runnable {
       Thread.sleep(max.toMillis() + 1000);
       // ----------------------------------------------------------------------
 
-      String result = client.solveProblem(problem.getTestId(), rate, min, max, kitchen.getActions());
+      String result = client.solveProblem(problem.getTestId(), rate, min, max, log.getActions());
       LOGGER.info("Result: {}", result);
 
     } 

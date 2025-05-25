@@ -1,64 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.css.challenge.client.KitchenManagerTest" time="6.021" tests="1" errors="0" skipped="0" failures="0">
+<testsuite name="com.css.challenge.client.KitchenManagerTest" time="1.036" tests="1" errors="0" skipped="0" failures="1">
   <properties>
-    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
-    <property name="java.vm.version" value="21.0.1+12-LTS-29"/>
-    <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home/lib"/>
+    <property name="jansi.mode" value="force"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="java.vm.version" value="17.0.9+9"/>
+    <property name="sun.boot.library.path" value="/Users/shajibkhan/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_17.0.9.v20231028-0858/jre/lib"/>
     <property name="maven.multiModuleProjectDirectory" value="/Users/shajibkhan/eclipse-workspace/cloudkitchen"/>
-    <property name="java.vm.vendor" value="Oracle Corporation"/>
-    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
     <property name="guice.disable.misplaced.annotation.check" value="true"/>
     <property name="path.separator" value=":"/>
-    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
     <property name="user.dir" value="/Users/shajibkhan/eclipse-workspace/cloudkitchen"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
-    <property name="java.runtime.version" value="21.0.1+12-LTS-29"/>
+    <property name="java.runtime.version" value="17.0.9+9"/>
     <property name="os.arch" value="x86_64"/>
     <property name="java.io.tmpdir" value="/var/folders/sl/1f5j616d74d2nsw0p_3wgk4m0000gn/T/"/>
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="stderr.encoding" value="UTF-8"/>
     <property name="os.name" value="Mac OS X"/>
-    <property name="classworlds.conf" value="/usr/local/Cellar/maven/3.6.1/libexec/bin/m2.conf"/>
+    <property name="classworlds.conf" value="/Users/shajibkhan/eclipse-workspace/.metadata/.plugins/org.eclipse.m2e.launching/launches/m2conf6969046858761821609.tmp"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="stdout.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/Users/shajibkhan/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:."/>
-    <property name="maven.conf" value="/usr/local/Cellar/maven/3.6.1/libexec/conf"/>
     <property name="jdk.debug" value="release"/>
-    <property name="java.class.version" value="65.0"/>
+    <property name="java.class.version" value="61.0"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="11.7.10"/>
-    <property name="library.jansi.path" value="/usr/local/Cellar/maven/3.6.1/libexec/lib/jansi-native"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="user.home" value="/Users/shajibkhan"/>
     <property name="user.timezone" value="America/New_York"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="java.specification.version" value="21"/>
+    <property name="java.specification.version" value="17"/>
     <property name="user.name" value="shajibkhan"/>
-    <property name="java.class.path" value="/usr/local/Cellar/maven/3.6.1/libexec/boot/plexus-classworlds-2.6.0.jar"/>
-    <property name="java.vm.specification.version" value="21"/>
+    <property name="java.class.path" value="/Users/shajibkhan/.p2/pool/plugins/org.eclipse.m2e.maven.runtime_3.9.900.20250220-2013/jars/plexus-classworlds-2.8.0.jar"/>
+    <property name="java.vm.specification.version" value="17"/>
     <property name="sun.arch.data.model" value="64"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher clean package"/>
-    <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home"/>
-    <property name="apple.awt.application.name" value="Launcher"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B -Dstyle.color=always install"/>
+    <property name="java.home" value="/Users/shajibkhan/.p2/pool/plugins/org.eclipse.justj.openjdk.hotspot.jre.full.macosx.x86_64_17.0.9.v20231028-0858/jre"/>
     <property name="user.language" value="en"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
-    <property name="java.vm.info" value="mixed mode, sharing"/>
-    <property name="java.version" value="21.0.1"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="17.0.9"/>
     <property name="native.encoding" value="UTF-8"/>
-    <property name="java.vendor" value="Oracle Corporation"/>
-    <property name="maven.home" value="/usr/local/Cellar/maven/3.6.1/libexec"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="maven.home" value="/Users/shajibkhan/eclipse-workspace/cloudkitchen/EMBEDDED"/>
+    <property name="style.color" value="always"/>
     <property name="file.separator" value="/"/>
     <property name="java.version.date" value="2023-10-17"/>
-    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
     <property name="sun.cpu.endian" value="little"/>
+    <property name="java.vendor.version" value="Temurin-17.0.9+9"/>
+    <property name="m2e.build.project.data.socket.port" value="65282"/>
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
   </properties>
-  <testcase name="testOverflowShelfDiscardsLeastFreshOrder" classname="com.css.challenge.client.KitchenManagerTest" time="6.021"/>
+  <testcase name="testOverflowShelfDiscardsLeastFreshOrder" classname="com.css.challenge.client.KitchenManagerTest" time="1.036">
+    <failure message="At least one order should have been discarded" type="java.lang.AssertionError">java.lang.AssertionError: At least one order should have been discarded
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.assertTrue(Assert.java:41)
+	at com.css.challenge.client.KitchenManagerTest.testOverflowShelfDiscardsLeastFreshOrder(KitchenManagerTest.java:58)
+</failure>
+    <system-out><![CDATA[PLACE | cold-0
+PLACE | cold-0
+PLACE | cold-1
+PLACE | cold-1
+PLACE | cold-2
+PLACE | cold-2
+PLACE | cold-3
+PLACE | cold-3
+PLACE | cold-4
+PLACE | cold-4
+PLACE | cold-5
+PLACE | cold-5
+PLACE | cold-6
+PLACE | cold-6
+PLACE | cold-7
+PLACE | cold-7
+PLACE | cold-8
+PLACE | cold-8
+PLACE | cold-9
+PLACE | cold-9
+PLACE | cold-10
+PLACE | cold-10
+PLACE | cold-11
+PLACE | cold-11
+PLACE | cold-12
+PLACE | cold-12
+PLACE | cold-13
+PLACE | cold-13
+PLACE | cold-14
+PLACE | cold-14
+PLACE | cold-15
+PLACE | cold-15
+PLACE | cold-16
+PLACE | cold-16
+PLACE | cold-17
+PLACE | cold-17
+PLACE | cold-18
+PLACE | cold-18
+]]></system-out>
+  </testcase>
 </testsuite>

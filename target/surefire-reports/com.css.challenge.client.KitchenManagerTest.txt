@@ -1,4 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: com.css.challenge.client.KitchenManagerTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.066 sec - in com.css.challenge.client.KitchenManagerTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.078 sec <<< FAILURE! - in com.css.challenge.client.KitchenManagerTest
+testOverflowShelfDiscardsLeastFreshOrder(com.css.challenge.client.KitchenManagerTest)  Time elapsed: 1.036 sec  <<< FAILURE!
+java.lang.AssertionError: At least one order should have been discarded
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.assertTrue(Assert.java:41)
+	at com.css.challenge.client.KitchenManagerTest.testOverflowShelfDiscardsLeastFreshOrder(KitchenManagerTest.java:58)
+
