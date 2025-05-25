@@ -1,6 +1,8 @@
 package com.css.challenge.harness;
 
 import com.css.challenge.client.*;
+import com.css.challenge.kitchen.KitchenManager;
+import com.css.challenge.model.Order;
 
 import java.time.Duration;
 import java.util.List;

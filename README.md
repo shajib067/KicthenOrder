@@ -15,12 +15,12 @@ This project simulates a kitchen system handling hot, cold and room temperature 
 
 ## 🚀 Technologies
 
-* Java 8
-* Spring Boot 1.2.3
+* Java 21
+* Spring Boot 3.2.5
 * Maven
 * Docker
-* Picocli (for CLI parsing)
-* JUnit 4 (tests)
+* Picocli 4.7.5 (for CLI parsing)
+* JUnit 5 (tests)
 
 ---
 
@@ -28,7 +28,7 @@ This project simulates a kitchen system handling hot, cold and room temperature 
 
 ### Prerequisites
 
-* Java 8+
+* Java 21+
 * Maven
 * Docker (if building container)
 
@@ -84,13 +84,25 @@ Optional flags:
 ## 📁 Project Structure
 
 ```
-src/main/java/com/css/challenge/client/
-├── Action.java          # Action logging model
-├── Client.java          # API client (provided)
-├── KitchenManager.java  # Core order handling logic
-├── Main.java            # Entry point + CLI
-├── Order.java           # Incoming order model
-```
+📁 Source Layout: `src/main/java/com/css/challenge/`
+
+├── client/
+│   ├── Main.java              # Entry point and CLI harness
+│   ├── KitchenSimulator.java  # Test harness for simulating order flow
+│   └── Problem.java           # Test inputs or simulation scenarios
+│
+├── kitchen/
+│   └── KitchenManager.java    # Core kitchen logic: order placement, movement, pickup
+│
+├── model/
+│   ├── Order.java             # Domain model representing an order
+│   └── Action.java            # Enum for order actions (place, move, pickup, discard)
+│
+├── log/
+│   └── ActionLogger.java      # Logging and action-tracing utility
+│
+└── storage/
+    └── OrderStorage.java      # Shelf management and storage abstraction
 
 ---
 

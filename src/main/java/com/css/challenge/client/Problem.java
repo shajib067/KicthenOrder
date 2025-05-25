@@ -2,6 +2,8 @@ package com.css.challenge.client;
 
 import java.util.List;
 
+import com.css.challenge.model.Order;
+
 /** Problem represents a test problem */
 public class Problem {
   private final String testId;

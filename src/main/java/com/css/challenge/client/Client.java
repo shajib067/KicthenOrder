@@ -1,5 +1,7 @@
 package com.css.challenge.client;
 
+import com.css.challenge.model.Action;
+import com.css.challenge.model.Order;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.time.Duration;

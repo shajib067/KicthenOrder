@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.css.challenge.harness.KitchenSimulator;
+import com.css.challenge.kitchen.KitchenManager;
+import com.css.challenge.log.ActionLogger;
 
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;

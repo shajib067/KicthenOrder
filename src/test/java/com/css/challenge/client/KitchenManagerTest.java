@@ -3,6 +3,11 @@ package com.css.challenge.client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.css.challenge.kitchen.KitchenManager;
+import com.css.challenge.log.ActionLogger;
+import com.css.challenge.model.Action;
+import com.css.challenge.model.Order;
+
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
