@@ -5,7 +5,10 @@ import java.util.concurrent.locks.ReentrantLock;
 
 
 public class KitchenManager {
-    private final int MAX_HOT = 6, MAX_COLD = 6, MAX_SHELF = 12;
+    
+	private final int hotShelfSize;
+	private final int coldShelfSize;
+	private final int roomShelfSize;
 
     private final Map<String, Order> heater = new HashMap<>();
     private final Map<String, Order> cooler = new HashMap<>();
@@ -16,9 +19,12 @@ public class KitchenManager {
 
     private ActionLogger log;
     
-    public KitchenManager(ActionLogger log) {
+    public KitchenManager(ActionLogger log, int hotShelfSize, int coldShelfSize, int roomShelfSize) {
         this.shelfQueue = new PriorityQueue<>((a, b) -> Long.compare(a.getExpiry(), b.getExpiry()));
         this.log = log;
+        this.hotShelfSize = hotShelfSize;
+        this.coldShelfSize = coldShelfSize;
+        this.roomShelfSize = roomShelfSize;
     }
 
     public void placeOrder(Order order) {
@@ -30,7 +36,7 @@ public class KitchenManager {
             if (!placed) {
             	order.updateExpiry("room");
                 boolean moved = tryMakeRoomOnShelf();
-                if (!moved && shelf.size() >= MAX_SHELF) {
+                if (!moved && shelf.size() >= roomShelfSize) {
                     discardLeastFresh();
                 }
                 shelf.put(order.getId(), order);
@@ -43,17 +49,17 @@ public class KitchenManager {
     }
 
     private boolean tryPlace(Order order) {
-        if (order.getTemp().equals("hot") && heater.size() < MAX_HOT) {
+        if (order.getTemp().equals("hot") && heater.size() < hotShelfSize) {
             heater.put(order.getId(), order);
             log.logAction("place", order.getId());
             return true;
         }
-        if (order.getTemp().equals("cold") && cooler.size() < MAX_COLD) {
+        if (order.getTemp().equals("cold") && cooler.size() < coldShelfSize) {
             cooler.put(order.getId(), order);
             log.logAction("place", order.getId());
             return true;
         }
-        if (shelf.size() < MAX_SHELF) {
+        if (shelf.size() < roomShelfSize) {
             shelf.put(order.getId(), order);
             shelfQueue.add(order);
             log.logAction("place", order.getId());
@@ -66,13 +72,13 @@ public class KitchenManager {
         Iterator<Order> it = shelf.values().iterator();
         while (it.hasNext()) {
             Order o = it.next();
-            if (o.getTemp().equals("hot") && heater.size() < MAX_HOT) {
+            if (o.getTemp().equals("hot") && heater.size() < hotShelfSize) {
                 it.remove();
                 shelfQueue.remove(o);
                 heater.put(o.getId(), o);
                 log.logAction("move", o.getId());
                 return true;
-            } else if (o.getTemp().equals("cold") && cooler.size() < MAX_COLD) {
+            } else if (o.getTemp().equals("cold") && cooler.size() < coldShelfSize) {
                 it.remove();
                 shelfQueue.remove(o);
                 cooler.put(o.getId(), o);

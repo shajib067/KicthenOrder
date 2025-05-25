@@ -42,13 +42,22 @@ public class Main implements Runnable {
 
   @Option(names = "--max", description = "Maximum pickup time")
   Duration max = Duration.ofSeconds(8);
+  
+  @Option(names = "--hotShelfSize", description = "Maximum capacity of hot shelf")
+  int hotShelfSize = 6;
+  
+  @Option(names = "--coldShelfSize", description = "Maximum capacity of cold shelf")
+  int coldShelfSize = 6;
+  
+  @Option(names = "--roomShelfSize", description = "Maximum capacity of room shelf")
+  int roomShelfSize = 12;
 
   @Autowired
   private ActionLogger log;
   
   @Override
   public void run() {
-    KitchenManager kitchen = new KitchenManager(log);
+    KitchenManager kitchen = new KitchenManager(log, hotShelfSize, coldShelfSize, roomShelfSize);
     KitchenSimulator simulator = new KitchenSimulator(kitchen, rate, min, max);
     try {
       Client client = new Client(endpoint, auth);

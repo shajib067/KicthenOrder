@@ -1,6 +1,7 @@
 package com.css.challenge.client;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -9,43 +10,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KitchenManagerTest {
 
-    private static long minMicros = 6_000_000; // 2s
-    private static long maxMicros = 8_000_000; // 4s
-    
-    private ActionLogger log = new ActionLogger();
+    private ActionLogger log;
+    private KitchenManager manager;
 
-    private KitchenManager manager = new KitchenManager(log);
+    @BeforeEach
+    public void setup() {
+        log = new ActionLogger();
+        manager = new KitchenManager(log, 6, 6, 12); // cold, hot, room capacities
+    }
 
-	@AfterEach
-	public void killThread() {
-		//manager.killExecutor();
-	}
-
-    @org.junit.jupiter.api.Test
+    @Test
     public void testOverflowShelfDiscardsLeastFreshOrder() throws InterruptedException {
-
-        // Create 19 cold orders to overflow cold and room shelf both
+        // Create 19 cold orders to overflow cold + room shelves
         for (int i = 0; i < 19; i++) {
             Order o = new Order("cold-" + i, "IceCream" + i, "cold", 100);
             manager.placeOrder(o);
         }
 
-        Thread.sleep(6000);
-
         List<Action> actions = log.getActions();
 
-        // Check a "discard" happened
+        // Check that at least one discard occurred
         boolean discardFound = actions.stream()
-            .anyMatch(a -> a.getAction().equals("discard"));
+            .anyMatch(a -> "discard".equals(a.getAction()));
 
         assertTrue(discardFound, "At least one order should have been discarded");
 
-        // Optional: Ensure cold-6 (first item in room shelf freshness) was the one discarded
+        // Optional check: Was "cold-6" discarded?
         String discardedId = actions.stream()
-            .filter(a -> a.getAction().equals("discard"))
+            .filter(a -> "discard".equals(a.getAction()))
             .map(Action::getId)
             .findFirst().orElse("");
-
-        assertEquals(discardedId, "cold-6");
+        assertEquals("cold-6", discardedId, "Order cold-6 was discarded");
     }
 }
