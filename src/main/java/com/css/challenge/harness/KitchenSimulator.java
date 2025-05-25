@@ -1,12 +1,12 @@
 package com.css.challenge.harness;
 
-import com.css.challenge.client.*;
 import com.css.challenge.kitchen.KitchenManager;
 import com.css.challenge.model.Order;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -29,15 +29,19 @@ public class KitchenSimulator {
     }
 
     public void runSimulation(List<Order> orders) throws InterruptedException {
+    	CountDownLatch latch = new CountDownLatch(orders.size());
         for (Order order : orders) {
             //System.out.println("Received: " + order);
             kitchen.placeOrder(order);
             // Schedule pickup
             long delay = random.nextLong(min.toNanos() / 1000, max.toNanos() / 1000);
-            scheduler.schedule(() -> kitchen.pickupOrder(order.getId()), delay, TimeUnit.MICROSECONDS);
+            scheduler.schedule(() -> {
+            	kitchen.pickupOrder(order.getId());
+            	latch.countDown();
+            }, delay, TimeUnit.MICROSECONDS);
             Thread.sleep(rate.toMillis());
         }
-        Thread.sleep(max.toMillis() + 1000); // Allow last pickups to happen
+        latch.await(); // wait until all orders picked up
     }
     
     public void killExecutor() {
